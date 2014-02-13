@@ -43,8 +43,11 @@ textProcessor <- function(documents, metadata=NULL,
   
   #Make a matrix
   if(verbose) cat("Creating Output... \n")
+ 
     if(!tfidf) dtm <- DocumentTermMatrix(txt, control = list(weighting = function(x) weightTfIdf(x, normalize = TRUE),  stopwords = TRUE))
+ 
   if(!tfidf) dtm <- DocumentTermMatrix(txt)
+ 
   dtm <- removeSparseTerms(dtm, sparselevel) #remove terms that are sparse
   
   #If there is metadata we need to remove some documents

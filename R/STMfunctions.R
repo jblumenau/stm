@@ -101,7 +101,7 @@ ijv.to.doc <- function(i,j,v) {
   index <- split(j,i)
   index <- lapply(index,as.integer)
   count <- split(v,i)
-  count <- lapply(count,as.integer)
+  count <- lapply(count,as.numeric)
   mapply(rbind,index,count)
 }
 

@@ -3,7 +3,7 @@
 textProcessor <- function(documents, metadata=NULL, 
                           lowercase=TRUE, removestopwords=TRUE, removenumbers=TRUE, removepunctuation=TRUE, stem=TRUE, 
                           sparselevel=.99, language="en",
-                          verbose=TRUE) {
+                          verbose=TRUE, tfidf=FALSE) {
   if(!require(tm,quietly=TRUE)) stop("Please install tm package to use this function. You will also need SnowballC if stemming.")
   if(stem) {
     if(!require(SnowballC, quietly=TRUE)) stop("Please install SnowballC to use stemming.")
@@ -43,7 +43,8 @@ textProcessor <- function(documents, metadata=NULL,
   
   #Make a matrix
   if(verbose) cat("Creating Output... \n")
-  dtm <- DocumentTermMatrix(txt)
+    if(!tfidf) dtm <- DocumentTermMatrix(txt, control = list(weighting = function(x) weightTfIdf(x, normalize = TRUE),  stopwords = TRUE))
+  if(!tfidf) dtm <- DocumentTermMatrix(txt)
   dtm <- removeSparseTerms(dtm, sparselevel) #remove terms that are sparse
   
   #If there is metadata we need to remove some documents

@@ -1,4 +1,3 @@
-
 #Takes a character vector with one entry per document and its metadata
 textProcessor <- function(documents, metadata=NULL, 
                           lowercase=TRUE, removestopwords=TRUE, removenumbers=TRUE, removepunctuation=TRUE, stem=TRUE, 
@@ -45,6 +44,7 @@ textProcessor <- function(documents, metadata=NULL,
   if(verbose) cat("Creating Output... \n")
  
     if(tfidf) dtm <- DocumentTermMatrix(txt, control = list(weighting = function(x) weightTfIdf(x, normalize = TRUE),  stopwords = TRUE))
+    if(tfidf) dtm <- as.integer(round(dtm$v*1000))
  
   if(!tfidf) dtm <- DocumentTermMatrix(txt)
  

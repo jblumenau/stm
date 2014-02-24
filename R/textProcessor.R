@@ -44,7 +44,7 @@ textProcessor <- function(documents, metadata=NULL,
   if(verbose) cat("Creating Output... \n")
  
     if(tfidf) dtm <- DocumentTermMatrix(txt, control = list(weighting = function(x) weightTfIdf(x, normalize = TRUE),  stopwords = TRUE))
-    if(tfidf) dtm <- as.integer(round(dtm$v*1000))
+    if(tfidf) dtm$v <- as.integer(round(dtm$v*1000))
  
   if(!tfidf) dtm <- DocumentTermMatrix(txt)
  
